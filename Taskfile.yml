@@ -1,0 +1,38 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  PROJECT: isoflask
+
+tasks:
+  export:
+    desc: export env
+    cmds:
+      - conda env export --no-builds  -n {{.PROJECT}} > environment.yml
+
+  push:
+    desc: commit and pushes current changes
+    cmds:
+      - git add .  || true
+      - git commit -am "$(curl -s https://commit.cacko.net/index.txt)" || true
+      - git push || true
+
+  build:
+    desc: build
+    cmds:
+      - git clean -xdf
+      - python setup.py bdist_wheel
+
+  publish:
+    desc: publish
+    cmds:
+      - scp dist/* muzak:/var/www/pypi/packages/isoflask
+
+  deploy:
+    desc: all
+    cmds:
+      - task: export
+      - task: push
+      - task: build
+      - task: publish
