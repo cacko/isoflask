@@ -10,9 +10,9 @@ __name__ = 'isoflask'
 class ISOJSONProvider(JSONProvider):
     def dumps(self, obj):
         if isinstance(obj, Path):
-            obj = obj.as_posix()
+            return json.dumps(obj.as_posix())
         elif isinstance(obj, datetime):
-            obj = obj.isoformat()
+           return json.dumps(obj.isoformat())
         return json.dumps(obj)
 
     def loads(self, s, **kwargs):
