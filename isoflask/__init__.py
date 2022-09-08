@@ -13,7 +13,7 @@ class ISOJSONProvider(JSONProvider):
             obj = obj.as_posix()
         elif isinstance(obj, datetime):
             obj = obj.isoformat()
-        return json.JSONEncoder.default(self, obj)
+        return json.dumps(obj)
 
     def loads(self, s, **kwargs):
         return json.loads(s)
