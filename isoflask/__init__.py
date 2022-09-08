@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask.json.provider import JSONProvider
 import json
-2from flask import Flask
+from flask import Flask
 from pathlib import Path
 
 __name__ = 'isoflask'
