@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask.json.provider import JSONProvider
 import json
-from flask import Flask
+2from flask import Flask
 from pathlib import Path
 
 __name__ = 'isoflask'
@@ -10,9 +10,9 @@ __name__ = 'isoflask'
 class ISOJSONProvider(JSONProvider):
     def dumps(self, obj):
         if isinstance(obj, Path):
-            return obj.as_posix()
+            obj = obj.as_posix()
         elif isinstance(obj, datetime):
-            return obj.isoformat()
+            obj = obj.isoformat()
         return json.JSONEncoder.default(self, obj)
 
     def loads(self, s, **kwargs):
