@@ -2,14 +2,14 @@ from datetime import datetime
 from flask.json.provider import JSONProvider
 import json
 from flask import Flask
-from pathlib import Path
+from pathlib import PosixPath
 
 __name__ = 'isoflask'
 
 
 class ISOJSONProvider(JSONProvider):
     def dumps(self, obj):
-        if isinstance(obj, Path):
+        if isinstance(obj, PosixPath):
             return json.dumps(obj.as_posix())
         elif isinstance(obj, datetime):
            return json.dumps(obj.isoformat())
